@@ -52,8 +52,8 @@ jQuery(document).ready(function($) {
 			},
 			500
 		);
-		$('.header__burger,.header__menu').toggleClass('active'); // открываем/закрываем меню
-		$('body').toggleClass('lock');
+		$('.header__burger,.header__menu').removeClass('active'); // открываем/закрываем меню
+		$('body').removeClass('lock');
 			// не даем странице прокручиваться при открытом меню
 	});
 });
