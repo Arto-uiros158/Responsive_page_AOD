@@ -1,0 +1,764 @@
+//<Подключаем шрифты>========================================
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700&display=swap');
+
+@font-face {
+	font-family: 'MyriadPro';
+	src: url('../fonts/MyriadPro-Regular.eot');
+	src: local('☺'), url('../fonts/MyriadPro-Regular.woff') format('woff'), url('../fonts/MyriadPro-Regular.ttf') format('truetype'), url('../fonts/MyriadPro-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+//<Шрифт по умолчанию>=======================================
+$fontfamily: 'Lato', sans-serif;
+//<ПЕРЕМЕННЫЕ для брейкпоинтов>==============================
+$minwidth: 320px;
+$mw: 1130px;
+$md1: $mw + 12px;
+$md2: 992px;
+$md3: 768px;
+$md4: 480px;
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================
+@import "nullstyle.scss";
+
+body {
+	color: #000;
+	font-size: 14px;
+	&.lock {
+		overflow: hidden;
+	}
+}
+
+.ibg {
+  	background-position: center;
+  	background-size: cover;
+  	background-repeat: no-repeat; 
+  	img {
+  		display: none;
+  	}
+}
+//<ОБОЛОЧКА>=================================================
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+//<ОСНОВНАЯ СЕТКА>===========================================
+.container {
+	max-width: $mw;
+	padding: 0px 15px;
+	margin: 0 auto;
+	// width: 100%;
+	// @media (max-width: $md1) {
+	// 	max-width: 970px;
+	// }
+	// @media (max-width: $md2) {
+	// 	max-width: 750px;
+	// }
+	// @media (max-width: $md3) {
+	// 	max-width: none;
+	// 	padding: 0 10px;
+	// }
+}
+//===========================================================
+.header {
+	min-height: 100vh;
+	// flex: 1 1 auto;
+	&__content {
+		position: relative;
+		z-index: 50;
+		margin: 35px 0px 0px 0px;
+		height: 85px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media (max-width: $md3) {
+			justify-content: flex-end;
+			padding: 0px 35px 0px 0px;
+		}
+	}
+	&__burger {
+		display: none;
+		@media (max-width: $md3) {
+			display: block;
+			position: relative;
+			z-index: 10;
+			width: 30px;
+			height: 20px;
+			span {
+				background-color: #000;
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				left: 0; /*создаем среднюю часть бургера*/
+				top: 9px; /*расставляем части бургера по вертикали*/
+				transition: all 0.3s ease 0s;
+			}
+			&:before,
+			&:after {
+				content: '';
+				background-color: #000;
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				left: 0; /*создаем верхнюю и нижнюю часть бургера*/
+				transition: all 0.3s ease 0s;
+			}
+			&:before {
+				top: 0; /*расставляем части бургера по вертикали*/
+			}
+			&:after {
+				bottom: 0; /*расставляем части бургера по вертикали*/
+			}
+			&.active:before {
+				background-color: #fff;
+				transform: rotate(45deg);
+				top: 9px; /*изменяем бургер на крестик*/
+			}
+			&.active:after {
+				background-color: #fff;
+				transform: rotate(-45deg);
+				bottom: 9px; /*изменяем бургер на крестик*/
+			}
+			&.active span {
+				transform: scale(0); /*изменяем бургер на крестик*/
+			}
+		}
+	}
+	&__menu {
+		@media (max-width: $md3) {
+			position: fixed;
+			z-index: 5;
+			top: -100%; /* скрываем меню */ 
+			left: 0; 
+			padding: 50px 10px 20px 10px;
+			width: 100%;
+			height: 100%;
+			overflow: auto; /*на тот случай, если пункты меню не поместятся на экране*/
+			background-color: #4d4959;
+			transition: all 0.5s ease 0s;
+			&.active {
+				top: 0;
+			}
+		}
+	}
+	&__list {
+		display: flex;
+		@media (max-width: $md3) {
+			flex-direction: column;
+			align-items: center;
+		}
+		li {
+			position: relative;
+			padding: 0px 37.5px;
+			&:nth-child(2) {
+				padding: 0px 110px 0px 37.5px;
+				&:after {
+					display: none;
+				}
+			}
+			&:nth-child(3) {
+				padding: 0px 37.5px 0px 110px;
+			}
+			&:after {
+				content:'';
+				position: absolute;
+				top: 50%;
+				right: 0;
+				margin: -1px 0px 0px 0px;
+				width: 3px;
+				height: 3px;
+				border-radius: 50%;
+				background-color: #4d4959;				
+			}
+			&:last-child {
+				&:after {
+					display: none;
+				}
+			}
+			@media (max-width: $md3) {
+				padding: 0px 0px 40px 0px;
+				&:first-child {
+					margin: 150px 0px 0px 0px;
+				}
+				&:nth-child(2) {
+					padding: 0px 0px 40px 0px;
+					&:after {
+						display: block;
+					}
+				}
+				&:nth-child(3) {
+					padding: 0px 0px 40px 0px;
+				}
+				&:after {
+					bottom: 0;
+					left: 50%;
+					margin: 10px 0 0px -2px;
+					background-color: #fff;
+				}
+				&:last-child {
+					padding: 0;
+					&:after {
+
+					}
+				}
+			}
+		}
+	}
+	&__link {
+		color: #4d4959;
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2.6px;
+		span {
+			position: relative;
+			display: block;
+			line-height: 28px;
+			&:after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				width: 0;
+				height: 1px;
+				background-color: #64c29e;
+				transition: all 0.5s ease 0s;
+			}
+		}
+		&:hover {
+			color: #64c29e;
+			span:after {
+				left: 0;
+				width: 100%;
+			}
+		}
+		@media (max-width: $md3) {
+			color: #fff;
+			font-size: 20px;
+		}
+	}
+	&__logo {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin: 0px 0px 0px -47px;
+		@media (max-width: $md3) {
+			left: 80px;
+		}
+		img {
+			max-width: 100%;
+		}
+	}
+	&__bg {
+		position: fixed; /* фиксируем картинку, чтобы блок контента как бы "наезжал" на нее */
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+//===========================================================
+.content {
+	// position: relative;
+	z-index: 50;
+	background-color: #fff;
+}
+//===========================================================
+.promo {
+	padding: 115px 0px 125px 0px;
+	background-color: #f7f7f7;
+	@media (max-width: $md3) {
+		padding: 50px 0px 60px 0px;
+	}
+	&__content-block {
+		padding: 0px 10px;
+	}
+}
+.block-content {
+	text-align: center;
+	&__icon {
+		margin: 0px 0px 30px 0px;
+		img {
+			max-width: 100%;
+		}
+	}
+	&__title {
+		margin: 0px 0px 20px 0px;
+		color: #353738;
+		font-size: 18px;
+		line-height: 34px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 3.6px;
+	}
+	&__text {
+		color: #848789;
+		font-size: 18px;
+		line-height: 34px;
+		&_justify {
+			text-align: justify;
+			font-size: 16px;
+			line-height: 30px;
+			&:after {
+				content:'';
+				display: block;
+				margin: 35px auto 0 auto;
+				width: 50px;
+				height: 1px;
+				background-color: rgba(53, 55, 56, 0.3);
+				@media (max-width: 1300px) {
+					margin: 15px auto 0 auto;
+				}
+			}
+		}
+	}
+}
+//===========================================================
+.companies {
+	&__row {
+		display: flex;
+		@media (max-width: $md1) {
+			flex-direction: column;
+			@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+			   display: block;
+			} /*позволяет написать отдельный код для IE10+*/
+		}
+	}
+	&__column {
+		flex: 0 1 33.33%;
+		&_big {
+			flex: 0 1 66.67%;
+		}
+	}
+	&__item {}
+	&__content-block {
+		position: relative;
+		padding: 70px 65px 55px 65px;
+		&:after {
+			content:'';
+			position: absolute;
+			left: 50%;
+			bottom: -10px;
+			margin: 0px 0px 0px -10px;
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top: 10px solid #fff;
+
+		}
+		@media (max-width: 1300px) {
+			padding: 30px 35px 25px 35px;
+		}
+	}
+	&__image {
+		padding: 0px 0px 37.5% 0px;
+		&_2nd {
+			@media (max-width: $md1) {
+				@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+					margin: 0px 0px 25px 0px;
+				} /*позволяет написать отдельный код для IE10+*/
+			}
+		}
+		&_3rd {
+			@media (max-width: $md1) {
+				margin: 0px 0px 25px 0px;
+			}
+		}
+
+	}
+	@media (max-width: $md1) {
+		margin: 0px 0px 25px 0px;
+		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		   margin: 0;
+		} /*позволяет написать отдельный код для IE10+*/
+		&_2nd {
+			@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+				margin: 0px 0px 25px 0px;
+			} /*позволяет написать отдельный код для IE10+*/
+			.companies__column {
+				order: 2;
+				&_big {
+					order: 1;
+				}
+			}
+		}
+		&_3rd {
+			margin: 0;
+		}
+	}
+}
+.item {
+	position: relative;
+	height: 100%;
+	&__logo {
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	&__image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		// top: 0;
+		// left: 0;
+		&_3rd {
+			background-position: top;
+		}
+	}
+	@media (max-width: $md1) {
+		height: auto;
+		padding: 0px 0px 56% 0px;
+		&_3rd {
+			height: 600px;
+			padding: 0;
+		}
+	}
+}
+//===========================================================
+/* Ограничивающая оболочка */
+.slick-list {
+	overflow: hidden;
+}
+/* Лента слайдов */
+.slick-track {
+	display: flex;
+	justify-content: center;
+	// align-items: center; 
+	align-items: flex-start;
+}
+/* Конкретный слайдер */
+.slider {
+	padding: 120px 0px 65px 0px;
+	// position: relative;
+	// min-width: 0;
+	// margin: 0 20px;
+	// padding: 0px 50px;
+	background-color: #f7f7f7;
+	@media (max-width: $md1) {
+		padding: 50px 0px 35px 0px;
+	}
+	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+ 		// margin: 50px 20px;
+	} /*позволяет написать отдельный код для IE10+*/	
+	.slick-dots {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		li {
+			margin: 50px 5px 0px 5px;
+			@media (max-width: $md1) {
+				margin: 20px 5px 0px 5px;
+			}
+			button {
+				font-size: 0;
+				width: 11px;
+				height: 11px;
+				background-color: transparent;
+				border: 1px solid #a9afb3;
+				border-radius: 50%;
+			}
+			&.slick-active {
+				button {
+					background-color: #a9afb3;				
+				}
+			}
+		}
+	}
+	&__item {
+		padding: 0px 200px;
+		text-align: center;
+		opacity: 0;
+		transition: all 0.5s ease 0s;
+		&.slick-center {
+			opacity: 1;
+		}
+		@media (max-width: 1300px) {
+			padding: 0;
+		}
+	}
+	&__icon {
+		margin: 0px 0px 35px 0px;
+		@media (max-width: $md1) {
+			margin: 0px 0px 20px 0px;
+		}
+	}
+	&__title {
+		margin: 0px 0px 20px 0px;
+		color: #353738;
+		font-size: 18px;
+		line-height: 24px;
+		font-weight: 700;
+		letter-spacing: 1.8px;
+		letter-spacing: 1.8px;
+		span {
+			color: #848789;
+			font-weight: 300;
+			letter-spacing: 1.8px;
+		}
+		@media (max-width: $md1) {
+			margin: 0px 0px 15px 0px;
+		}
+	}
+	&__text {
+		color: #848789;
+		font-size: 24px;
+		line-height: 34px;
+		font-style: italic;
+		@media (max-width: $md1) {
+			font-size: 18px;
+			line-height: 34px;
+		}
+	}
+}
+//===========================================================
+.shop {
+	&__body {
+		display: flex;
+	}
+	&__column {
+		flex: 0 1 16.66%;
+		&_big {
+			flex: 0 1 33.33%;
+		}
+	}
+	&__block {}
+	@media (max-width: $md1) {
+		&__body {
+			flex-wrap: wrap;
+		}
+		&__column {
+			flex: 0 1 50%;
+			&:first-child {
+				flex: 1 1 100%;
+			}
+			&:last-child {
+				flex: 1 1 100%;
+			}
+		}
+	}
+	&__footer {
+		padding: 75px 0px;
+		text-align: center;
+		background-color: #282f35;
+		@media (max-width: $md3) {
+			padding: 45px 0px;
+		}
+	}
+	&__btn {
+		display: inline-block;
+		padding: 0px 60px;
+		height: 50px;
+		line-height: 50px;
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2.8px;
+		transition: all 0.5s ease 0s;
+		&:hover {
+			color: #000;
+			background-color: #fff;
+		}
+		@media (max-width: $md4) {
+			padding: 0px 30px;
+		}
+	}
+}
+.block-shop {
+	// height: 100%;
+	&__row {
+		display: flex;
+	}
+	&__column {
+		flex: 0 1 50%;
+	}
+	&__item {
+		// height: auto;
+		padding: 0px 0px 50% 0px;
+		&_big {
+			padding: 0px 0px 200% 0px;
+		}
+		&_little {
+			padding: 0px 0px 100% 0px;
+		}
+	}
+}
+.logo {
+	&_hover {
+		display: flex;
+		flex-direction: column;
+		background-color: rgba(100, 194, 158, 0.7);
+		opacity: 0;
+		transition: all 0.5s ease 0s;
+		span {
+			margin: 10px 0px 0px 0px;
+			a {
+				color: #ffffff;
+				font-size: 14px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 2.8px;
+			}
+		}
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+//===========================================================
+.contact {
+	&__body {
+		padding: 110px 0px;
+		max-width: 534px;
+		margin: 0px auto;
+		text-align: center;
+		@media (max-width: $md3) {
+			max-width: 310px;
+			padding: 45px 0px;
+		}
+	}
+	&__logo {
+		margin: 0px 0px 35px 0px;
+		@media (max-width: $md3) {
+			margin: 0px 0px 25px 0px;
+		}
+	}
+	&__text {
+		margin: 0px 0px 30px 0px;
+		color: #848789;
+		font-size: 24px;
+		line-height: 34px;
+		font-style: italic;
+		@media (max-width: $md3) {
+			margin: 0px 0px 25px 0px;
+		}
+	}
+	&__form {
+		display: flex;
+		@media (max-width: $md3) {
+			display: block;
+		}
+	}
+	&__input {
+		flex: 1 1 auto;
+		margin: 0px 8px 0px 0px;
+		.input {
+			padding: 0px 28px;
+			width: 100%;
+			height: 100%;
+			font-style: italic;
+			color: #929292;
+			font-size: 20px;
+			line-height: 24px;
+			border: 1px solid #d3d7d9;
+			&:focus {
+				border: 1px solid #64c29e;
+			}
+		}
+		@media (max-width: $md3) {
+			margin: 0px 0px 8px 0px;
+			.input {
+				height: 50px;
+				text-align: center;
+			}
+		}
+	}
+	&__button {
+
+	}
+	&__btn {
+		padding: 0px 45px;
+		height: 69px;
+		line-height: 69px;
+		background-color: #64c29e;
+		color: #ffffff;
+		font-size: 24px;
+		font-weight: 300;
+		text-transform: uppercase;
+		transition: all 0.3s ease 0s;
+		&:hover {
+			background-color: rgba(100, 194, 158, 0.75);
+		}
+		@media (max-width: $md3) {
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			padding: 0;
+			font-size: 20px;
+		}
+	}
+}
+//===========================================================
+.footer {
+	padding: 100px 0px;
+	background-color: #f7f7f7;
+	z-index: 51;
+	@media (max-width: $md3) {
+		padding: 45px 0px;
+	}
+	&__row {
+		display: flex;
+		align-items: center;
+		@media (max-width: $md3) {
+			display: block;
+		}
+	}
+	&__column {
+		flex: 0 1 33.33%;
+	}
+	&__address {
+		color: #848789;
+		font-size: 16px;
+		line-height: 20px;
+		font-weight: 700;
+		span {
+			font-style: italic;
+			font-weight: 400;
+			font-size: 14px;
+			a {
+				color: #848789;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		@media (max-width: $md3) {
+			text-align: center;
+		}
+	}
+	&__social {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media (max-width: $md3) {
+			margin: 20px 0px 15px 0;
+		}
+	}
+	&__link {
+		margin: 0px 7.5px;
+	}
+	&__designer {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		@media (max-width: $md3) {
+			justify-content: center;
+		}
+	}
+	&__text {
+		color: #848789;
+		font-size: 14px;
+		line-height: 17.87px;
+	}
+	&__icon {
+		margin: 0px 0px 0px 10px;
+	}
+}
